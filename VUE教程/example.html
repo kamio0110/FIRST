@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>   
+ 	   <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  	  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<title>百度一下，你就知道</title>
+	</head> 
+	<body>
+		<div id="app-2">
+			<span v-bind:title="message">AAA</span>
+		</div>
+		<div id="app-3">
+			<span v-if="seen">BBB</span>
+		</div>
+
+		<div id="app-4">
+			<p>{{ foo }}</p>
+			<button v-on:click="foo='baz'">change it</button>
+		</div>
+		<div id="app-5">
+			<p>{{ a }}</p>
+			<button v-on:click="a = '2'">change it</button>
+		</div>
+		<div id="app-6">
+			<p>{{rawHtml}}</p>
+			<p><span v-html="rawHtml"></span></p>
+		</div>
+
+		
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			var app2 = new Vue({
+				el:'#app-2',
+				data:{
+					message:'页面加载于' + new Date().toLocaleString()
+				}
+			});
+			var app3 = new Vue({
+			  el: '#app-3',
+			  data: {
+			//	seen: true,
+				seen: false,
+			  }
+			});
+
+			var obj = {
+			  foo: 'bar'
+			};
+
+			Object.freeze(obj);
+
+
+			var app4 = new Vue({
+			  el: '#app-4',
+			  data: obj
+			});
+
+			var dataExample1 = { a : '1'};
+			var vm = new Vue({
+				el:'#app-5',
+				data:dataExample1,
+			});
+			console.log(vm.data);
+			console.log(vm.$el);
+			
+			vm.$watch('a',function(newValue,oldValue){
+				console.log(123123123);
+				console.log(oldValue);
+				console.log(newValue);
+			});
+			
+			var vm2 = new Vue({
+				data:{a:1},
+				created:function(){
+					console.log('a is :' + this.a);
+				}
+			});
+			
+			var vm3 = new Vue({
+				el:'#app-6',
+				data:{rawHtml:'<a>aaaaaaaaaaa</a>'}
+			});
+		</script>
+	</body>
+</html>
+
+
+
+
+

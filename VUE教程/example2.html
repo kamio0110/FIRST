@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style scoped>
+h1 {
+  font-weight: normal;
+  color: #42b983;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- import { Vue } from 'vue/types/vue'; -->
+  <div class="one">
+    <h1>
+      {{number}}
+    </h1>
+  <span>
+    {{obj1.foo}}
+    (被freeze)
+  </span>
+  <p>
+    {{obj2.boo}}
+    （正常）
+  </p>
+  <p>
+    {{obj3}}
+    （正常）
+  </p>
+  <!-- 两个都不能修改？？为什么？第二个理论上应该是可以修改的-->
+  <button v-on:click="obj1.foo='yyy';obj2.boo='bbb'">点我修改12</button>
+  <!-- bbb可修改，yyy不可改 -->
+  <button @click="obj2.boo='bbb';obj1.foo='yyy'">点我修改21</button>
+  <!-- 两个都可以修改 -->
+  <button @click="obj2.boo='ccc';obj3='444'">点我修改23</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+var obj1 = {
+  foo: 'xxx'
+}
+// 使用 Object.freeze() 来防止已有属性被修改，这也意味着响应式系统无法追踪变化。
+Object.freeze(obj1)
+
+var obj2 = {
+  boo: 'aaa'
+}
+var app = new Vue({
+  name: 'lianxi',
+	el:'.one',
+  data () {
+    return {
+      number: '123',
+      obj1: obj1,
+      obj2: obj2,
+      obj3: 333
+    }
+  }
+});
+
+</script>
+
+
+</body>
+</html>
